@@ -143,11 +143,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify(data)
             });
 
-            if (!response.ok) {
-                throw new Error('Erro ao enviar');
+            const result = await response.json();
+            
+            if (!response.ok || result.error) {
+                throw new Error(result.error || result.details || 'Erro ao enviar');
             }
 
-            return await response.json();
+            return result;
         } catch (error) {
             console.error('Erro:', error);
             throw error;
@@ -176,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 modalForm.reset();
             } catch (error) {
-                showMessage(modalFormMessage, 'Desculpe, houve um erro ao enviar sua solicitação. Por favor, tente novamente ou entre em contato conosco pelo e-mail scpc@acia.com.br', 'error');
+                showMessage(modalFormMessage, 'Desculpe, houve um erro ao enviar sua solicitação. Por favor, tente novamente ou entre em contato conosco pelo e-mail scpc.suporte@acia.com.br', 'error');
             } finally {
                 modalSubmitBtn.disabled = false;
                 modalSubmitBtn.textContent = 'Enviar interesse';

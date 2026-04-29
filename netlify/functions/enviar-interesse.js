@@ -9,28 +9,36 @@ exports.handler = async function(event, context) {
     }
 
     try {
+        console.log('Recebendo dados do formulário...');
         const data = JSON.parse(event.body);
+        console.log('Dados recebidos:', JSON.stringify(data));
+        
         const { nome, celular, email, associado, plano, empresa, cnpj, observacao, dataEnvio } = data;
 
         if (!nome || !celular || !email || !associado || !plano) {
+            console.error('Campos obrigatórios faltando');
             return {
                 statusCode: 400,
                 body: JSON.stringify({ error: 'Campos obrigatórios faltando' })
             };
         }
 
+        console.log('Criando transporter SMTP...');
         const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || 'mail.acia.com.br',
-            port: parseInt(process.env.SMTP_PORT) || 587,
+            host: process.env.SMTP_HOST,
+            port: parseInt(process.env.SMTP_PORT),
             secure: false,
             auth: {
-                user: process.env.SMTP_USER || 'contato@acia.com.br',
-                pass: process.env.SMTP_PASS || 'Acia@2026'
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
             }
         });
 
-        const mailTo = process.env.MAIL_TO || 'scpc@acia.com.br';
-        const mailFrom = process.env.MAIL_FROM || 'contato@acia.com.br';
+        const mailTo = process.env.MAIL_TO;
+        const mailFrom = process.env.MAIL_FROM;
+        
+        console.log('SMTP config:', { host: process.env.SMTP_HOST, port: process.env.SMTP_PORT, user: process.env.SMTP_USER });
+        console.log('Enviando e-mail para:', mailTo);
 
         const htmlContent = `
 <!DOCTYPE html>
@@ -141,6 +149,8 @@ Data e hora do envio: ${dataEnvio}
             text: textContent,
             html: htmlContent
         });
+        
+        console.log('E-mail enviado! MessageId:', info.messageId);
 
         return {
             statusCode: 200,
