@@ -1,0 +1,22 @@
+{
+  "name": "equifax-boavista-acia",
+  "version": "1.0.0",
+  "description": "Página de Propaganda dos Planos Equifax Boa Vista para ACIA",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'Build completed'"
+  },
+  "dependencies": {
+    "nodemailer": "latest"
+  },
+  "keywords": [
+    "equifax",
+    "boavista",
+    "acia",
+    "credito",
+    "consulta"
+  ],
+  "author": "ACIA",
+  "license": "MIT"
+}
