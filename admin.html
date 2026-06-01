@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração dos Planos - ACIA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo admin-logo-link">
+                <img src="img/logoacia.png" alt="ACIA" class="logo-img">
+                <img src="img/equifax.png" alt="Equifax Boa Vista" class="logo-img logo-equifax-img">
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Voltar ao site</a>
+                <button class="nav-link admin-logout" type="button" id="logoutBtn" hidden>Sair</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <section class="admin-login-section" id="loginSection">
+            <div class="container admin-login-container">
+                <div class="admin-login-card">
+                    <h1 class="admin-login-title">Administração</h1>
+                    <p class="admin-login-subtitle">Entre com o usuário autorizado para editar os planos.</p>
+                    <form class="form" id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail" class="form-label">E-mail</label>
+                            <input type="email" id="loginEmail" name="email" class="form-input" autocomplete="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword" class="form-label">Senha</label>
+                            <input type="password" id="loginPassword" name="password" class="form-input" autocomplete="current-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="loginSubmitBtn">Entrar</button>
+                        <div class="form-message" id="loginMessage"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="adminPanelSection" class="admin-section" hidden>
+            <div class="container">
+                <h1 class="section-title">Administração dos planos</h1>
+                <p class="section-subtitle">Edite nome, valor, indicação e destaque dos planos exibidos no site.</p>
+                <div class="admin-panel">
+                    <div class="admin-toolbar">
+                        <button class="btn btn-secondary" type="button" id="adminAddPlan">Adicionar plano</button>
+                        <button class="btn btn-primary" type="button" id="adminSavePlans">Salvar alterações</button>
+                        <button class="btn admin-reset-btn" type="button" id="adminResetPlans">Restaurar padrão</button>
+                    </div>
+                    <div class="admin-plan-list" id="adminPlanList"></div>
+                    <div class="form-message" id="adminMessage"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <button class="admin-floating-save" type="button" id="adminFloatingSave" hidden>
+        Salvar alterações
+    </button>
+
+    <div class="admin-dialog" id="adminDialog" hidden>
+        <div class="admin-dialog-box" role="dialog" aria-modal="true" aria-labelledby="adminDialogTitle">
+            <h2 class="admin-dialog-title" id="adminDialogTitle">Confirmar ação</h2>
+            <p class="admin-dialog-text" id="adminDialogText"></p>
+            <div class="admin-dialog-actions" id="adminDialogActions">
+                <button class="btn admin-reset-btn" type="button" id="adminDialogCancel">Cancelar</button>
+                <button class="btn btn-primary" type="button" id="adminDialogConfirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+</body>
+</html>

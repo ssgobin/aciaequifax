@@ -13,6 +13,50 @@
     --transition: all 0.3s ease;
 }
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes softPulse {
+    0%, 100% {
+        box-shadow: 0 8px 32px rgba(196, 30, 58, 0.15);
+    }
+
+    50% {
+        box-shadow: 0 12px 42px rgba(196, 30, 58, 0.24);
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -31,6 +75,10 @@ body {
     font-size: 16px;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -43,6 +91,7 @@ body {
     color: var(--primary-color);
     text-align: center;
     margin-bottom: 12px;
+    animation: fadeInUp 0.55s ease both;
 }
 
 .section-subtitle {
@@ -50,6 +99,7 @@ body {
     color: var(--text-light);
     text-align: center;
     margin-bottom: 48px;
+    animation: fadeInUp 0.55s 0.08s ease both;
 }
 
 .btn {
@@ -63,6 +113,11 @@ body {
     cursor: pointer;
     transition: var(--transition);
     text-align: center;
+    will-change: transform;
+}
+
+.btn:active {
+    transform: translateY(0) scale(0.98);
 }
 
 .btn-primary {
@@ -132,6 +187,7 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
+    animation: fadeIn 0.45s ease both;
 }
 
 .header-container {
@@ -184,10 +240,35 @@ body {
     font-weight: 500;
     font-size: 0.95rem;
     transition: var(--transition);
+    position: relative;
+}
+
+.nav-link:not(.btn-nav)::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background: var(--secondary-color);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
 }
 
 .nav-link:hover {
     color: var(--secondary-color);
+}
+
+.nav-link:not(.btn-nav):hover::after {
+    transform: scaleX(1);
+}
+
+.admin-logout {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
 }
 
 .hero {
@@ -226,6 +307,7 @@ body {
     text-align: center;
     position: relative;
     z-index: 1;
+    animation: fadeInUp 0.7s ease both;
 }
 
 .hero-badge {
@@ -238,6 +320,7 @@ body {
     font-weight: 500;
     margin-bottom: 24px;
     letter-spacing: 0.5px;
+    animation: popIn 0.65s 0.12s ease both;
 }
 
 .hero-title {
@@ -261,6 +344,7 @@ body {
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
+    animation: fadeInUp 0.7s 0.18s ease both;
 }
 
 .beneficios {
@@ -283,6 +367,8 @@ body {
     transition: var(--transition);
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.04);
+    animation: fadeInUp 0.58s ease both;
+    animation-delay: calc(var(--item-index, 0) * 70ms);
 }
 
 .beneficio-card:hover {
@@ -295,6 +381,35 @@ body {
     margin-bottom: 20px;
     display: flex;
     justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.beneficio-card:hover .beneficio-icon {
+    transform: translateY(-3px) scale(1.06);
+}
+
+.beneficio-card:nth-child(1) {
+    --item-index: 0;
+}
+
+.beneficio-card:nth-child(2) {
+    --item-index: 1;
+}
+
+.beneficio-card:nth-child(3) {
+    --item-index: 2;
+}
+
+.beneficio-card:nth-child(4) {
+    --item-index: 3;
+}
+
+.beneficio-card:nth-child(5) {
+    --item-index: 4;
+}
+
+.beneficio-card:nth-child(6) {
+    --item-index: 5;
 }
 
 .beneficio-icon svg {
@@ -335,6 +450,8 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
+    animation: fadeInUp 0.58s ease both;
+    animation-delay: calc(var(--item-index, 0) * 70ms);
 }
 
 .plano-card:hover {
@@ -346,6 +463,10 @@ body {
 .plano-destaque {
     border-color: var(--secondary-color);
     box-shadow: 0 8px 32px rgba(196, 30, 58, 0.15);
+    animation-name: fadeInUp, softPulse;
+    animation-duration: 0.58s, 3.5s;
+    animation-delay: calc(var(--item-index, 0) * 70ms), 1s;
+    animation-iteration-count: 1, infinite;
 }
 
 .plano-destaque:hover {
@@ -410,6 +531,224 @@ body {
     text-align: center;
     margin-bottom: 24px;
     flex-grow: 1;
+}
+
+.admin-section {
+    padding: 100px 0;
+    background-color: var(--bg-light);
+}
+
+.admin-page {
+    min-height: 100vh;
+    background: var(--bg-light);
+}
+
+.admin-main {
+    padding-top: 80px;
+}
+
+.admin-logo-link {
+    text-decoration: none;
+}
+
+.admin-login-section {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    padding: 48px 0;
+}
+
+.admin-login-container {
+    display: flex;
+    justify-content: center;
+}
+
+.admin-login-card {
+    width: min(100%, 440px);
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: var(--shadow);
+    animation: popIn 0.5s ease both;
+}
+
+.admin-login-title {
+    color: var(--primary-color);
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.admin-login-subtitle {
+    color: var(--text-light);
+    margin-bottom: 28px;
+}
+
+.admin-panel {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    animation: fadeInUp 0.5s ease both;
+}
+
+.admin-toolbar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.admin-reset-btn {
+    background-color: var(--bg-white);
+    color: var(--text-light);
+    border-color: var(--border-color);
+}
+
+.admin-reset-btn:hover {
+    color: var(--text-color);
+    border-color: var(--text-muted);
+}
+
+.admin-plan-list {
+    display: grid;
+    gap: 18px;
+}
+
+.admin-plan-item {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    background: var(--bg-white);
+    animation: fadeInUp 0.42s ease both;
+    animation-delay: calc(var(--item-index, 0) * 50ms);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.admin-plan-item:focus-within {
+    border-color: rgba(30, 58, 95, 0.45);
+    box-shadow: 0 10px 30px rgba(30, 58, 95, 0.1);
+    transform: translateY(-2px);
+}
+
+.admin-plan-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    color: var(--primary-color);
+}
+
+.admin-remove-btn {
+    background: transparent;
+    border: 0;
+    color: var(--secondary-color);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    padding: 6px 0;
+}
+
+.admin-remove-btn:hover {
+    color: var(--accent-color);
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.admin-grid-wide {
+    grid-column: 1 / -1;
+}
+
+.admin-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--text-color);
+    padding-top: 32px;
+}
+
+.admin-check input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--secondary-color);
+}
+
+.admin-dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(30, 58, 95, 0.62);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.18s ease both;
+}
+
+.admin-dialog-box {
+    width: min(100%, 440px);
+    background: var(--bg-white);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.28);
+    animation: popIn 0.22s ease both;
+}
+
+.admin-dialog-title {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    line-height: 1.25;
+    margin-bottom: 10px;
+}
+
+.admin-dialog-text {
+    color: var(--text-light);
+    margin-bottom: 24px;
+}
+
+.admin-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.admin-floating-save {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 2500;
+    min-width: 220px;
+    padding: 16px 22px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--secondary-color);
+    color: var(--bg-white);
+    box-shadow: 0 16px 42px rgba(196, 30, 58, 0.35);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+    animation: popIn 0.24s ease both;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.admin-floating-save:hover {
+    background: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(196, 30, 58, 0.42);
+}
+
+.admin-floating-save:active {
+    transform: translateY(0) scale(0.98);
 }
 
 .cta-section {
@@ -500,6 +839,7 @@ body {
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    animation: fadeIn 0.18s ease both;
 }
 
 .modal-content {
@@ -511,6 +851,7 @@ body {
     position: relative;
     margin-top: 40px;
     box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+    animation: popIn 0.24s ease both;
 }
 
 .modal-close {
@@ -585,12 +926,14 @@ body {
     transition: var(--transition);
     font-family: inherit;
     background: var(--bg-white);
+    transform: translateZ(0);
 }
 
 .form-input:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 4px rgba(30, 58, 95, 0.1);
+    transform: translateY(-1px);
 }
 
 .form-input::placeholder {
@@ -608,6 +951,18 @@ body {
     text-align: center;
     display: none;
     font-weight: 500;
+    animation: fadeInUp 0.28s ease both;
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .form-message.success {
@@ -641,6 +996,17 @@ body {
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 @media (max-width: 768px) {
     body {
         font-size: 15px;
@@ -662,6 +1028,10 @@ body {
 
     .nav-link:not(.btn-nav) {
         display: none;
+    }
+
+    .nav-link.admin-link {
+        display: inline-block;
     }
 
     .btn-nav {
@@ -692,6 +1062,7 @@ body {
 
     .beneficios,
     .planos,
+    .admin-section,
     .cta-section {
         padding: 60px 0;
     }
@@ -711,6 +1082,51 @@ body {
 
     .planos-grid {
         grid-template-columns: 1fr;
+    }
+
+    .admin-panel {
+        padding: 24px;
+    }
+
+    .admin-main {
+        padding-top: 124px;
+    }
+
+    .admin-login-section {
+        min-height: calc(100vh - 124px);
+        align-items: flex-start;
+    }
+
+    .admin-login-card {
+        padding: 28px 22px;
+    }
+
+    .admin-toolbar .btn {
+        width: 100%;
+    }
+
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-check {
+        padding-top: 0;
+    }
+
+    .admin-dialog-box {
+        padding: 26px 22px;
+    }
+
+    .admin-dialog-actions .btn {
+        width: 100%;
+    }
+
+    .admin-floating-save {
+        right: 16px;
+        left: 16px;
+        bottom: 16px;
+        width: auto;
+        min-width: 0;
     }
 
     .cta-title {

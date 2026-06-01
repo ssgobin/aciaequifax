@@ -88,99 +88,7 @@
         <div class="container">
             <h2 class="section-title">Escolha o plano ideal para sua empresa</h2>
             <p class="section-subtitle">Planos desenvolvidos para quem busca segurança na tomada de decisão</p>
-            <div class="planos-grid">
-                <div class="plano-card" data-plano="Plano Basic - R$ 69,90">
-                    <div class="plano-header">
-                        <h3 class="plano-nome">Basic</h3>
-                        <div class="plano-preco">
-                            <span class="plano-preco-valor">R$ 69</span>
-                            <span class="plano-preco-valor-cent">,90</span>
-                            <span class="plano-preco-periodo">/mês</span>
-                        </div>
-                    </div>
-                    <p class="plano-indicacao">Ideal para consultas pontuais</p>
-                    <button class="btn btn-secondary btn-block plano-btn" data-plano="Plano Basic - R$ 69,90">Tenho interesse</button>
-                </div>
-
-                <div class="plano-card" data-plano="Plano Plus - R$ 249,90">
-                    <div class="plano-header">
-                        <h3 class="plano-nome">Plus</h3>
-                        <div class="plano-preco">
-                            <span class="plano-preco-valor">R$ 249</span>
-                            <span class="plano-preco-valor-cent">,90</span>
-                            <span class="plano-preco-periodo">/mês</span>
-                        </div>
-                    </div>
-                    <p class="plano-indicacao">Ideal para pequenas empresas</p>
-                    <button class="btn btn-secondary btn-block plano-btn" data-plano="Plano Plus - R$ 249,90">Tenho interesse</button>
-                </div>
-
-                <div class="plano-card plano-destaque" data-plano="Plano Premium - R$ 600,00">
-                    <div class="plano-badge">Mais vendido</div>
-                    <div class="plano-header">
-                        <h3 class="plano-nome">Premium</h3>
-                        <div class="plano-preco">
-                            <span class="plano-preco-valor">R$ 600</span>
-                            <span class="plano-preco-valor-cent">,00</span>
-                            <span class="plano-preco-periodo">/mês</span>
-                        </div>
-                    </div>
-                    <p class="plano-indicacao">Ideal para médias empresas</p>
-                    <button class="btn btn-primary btn-block plano-btn" data-plano="Plano Premium - R$ 600,00">Tenho interesse</button>
-                </div>
-
-                <div class="plano-card" data-plano="Plano Business - R$ 1.800,00">
-                    <div class="plano-header">
-                        <h3 class="plano-nome">Business</h3>
-                        <div class="plano-preco">
-                            <span class="plano-preco-valor">R$ 1.800</span>
-                            <span class="plano-preco-valor-cent">,00</span>
-                            <span class="plano-preco-periodo">/mês</span>
-                        </div>
-                    </div>
-                    <p class="plano-indicacao">Ideal para grandes empresas</p>
-                    <button class="btn btn-secondary btn-block plano-btn" data-plano="Plano Business - R$ 1.800,00">Tenho interesse</button>
-                </div>
-
-                <div class="plano-card" data-plano="Plano Enterprise - R$ 7.000,00">
-                    <div class="plano-header">
-                        <h3 class="plano-nome">Enterprise</h3>
-                        <div class="plano-preco">
-                            <span class="plano-preco-valor">R$ 7.000</span>
-                            <span class="plano-preco-valor-cent">,00</span>
-                            <span class="plano-preco-periodo">/mês</span>
-                        </div>
-                    </div>
-                    <p class="plano-indicacao">Para alto volume de consultas</p>
-                    <button class="btn btn-secondary btn-block plano-btn" data-plano="Plano Enterprise - R$ 7.000,00">Tenho interesse</button>
-                </div>
-
-                <div class="plano-card" data-plano="Plano Corporate - R$ 10.000,00">
-                    <div class="plano-header">
-                        <h3 class="plano-nome">Corporate</h3>
-                        <div class="plano-preco">
-                            <span class="plano-preco-valor">R$ 10.000</span>
-                            <span class="plano-preco-valor-cent">,00</span>
-                            <span class="plano-preco-periodo">/mês</span>
-                        </div>
-                    </div>
-                    <p class="plano-indicacao">Para necessidades específicas</p>
-                    <button class="btn btn-secondary btn-block plano-btn" data-plano="Plano Corporate - R$ 10.000,00">Tenho interesse</button>
-                </div>
-
-                <div class="plano-card" data-plano="Plano VIP - R$ 20.000,00">
-                    <div class="plano-header">
-                        <h3 class="plano-nome">VIP</h3>
-                        <div class="plano-preco">
-                            <span class="plano-preco-valor">R$ 20.000</span>
-                            <span class="plano-preco-valor-cent">,00</span>
-                            <span class="plano-preco-periodo">/mês</span>
-                        </div>
-                    </div>
-                    <p class="plano-indicacao">Para grandes operações</p>
-                    <button class="btn btn-secondary btn-block plano-btn" data-plano="Plano VIP - R$ 20.000,00">Tenho interesse</button>
-                </div>
-            </div>
+            <div class="planos-grid" id="planosGrid"></div>
         </div>
     </section>
 
@@ -245,13 +153,6 @@
                         <label for="modalPlano" class="form-label">Plano de interesse *</label>
                         <select id="modalPlano" name="plano" class="form-input" required>
                             <option value="">Selecione um plano</option>
-                            <option value="Plano Basic - R$ 69,90">Basic - R$ 69,90/mês</option>
-                            <option value="Plano Plus - R$ 249,90">Plus - R$ 249,90/mês</option>
-                            <option value="Plano Premium - R$ 600,00">Premium - R$ 600,00/mês</option>
-                            <option value="Plano Business - R$ 1.800,00">Business - R$ 1.800,00/mês</option>
-                            <option value="Plano Enterprise - R$ 7.000,00">Enterprise - R$ 7.000,00/mês</option>
-                            <option value="Plano Corporate - R$ 10.000,00">Corporate - R$ 10.000,00/mês</option>
-                            <option value="Plano VIP - R$ 20.000,00">VIP - R$ 20.000,00/mês</option>
                         </select>
                     </div>
                 </div>
@@ -275,6 +176,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
