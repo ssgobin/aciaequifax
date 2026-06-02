@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
         renderTable();
 
         salesTableNote.textContent = discount
-            ? `Valores com ${discount}% de desconto aplicado.`
-            : 'Valores sem desconto aplicado.';
+            ? `Valores unitários com ${discount}% de desconto aplicado. Planos e pacotes permanecem sem desconto.`
+            : 'Valores unitários sem desconto aplicado. Planos e pacotes permanecem sem desconto.';
 
         salesCount.textContent = `${consultas.length} consultas`;
     }
@@ -74,14 +74,12 @@ document.addEventListener('DOMContentLoaded', function() {
         salesPlanGrid.innerHTML = '';
 
         planos.forEach(plano => {
-            const originalValue = parseCurrency(plano.preco);
-            const discountedValue = applyDiscount(originalValue);
             const card = document.createElement('article');
             card.className = 'sales-plan-card';
             card.innerHTML = `
                 <span>${escapeHtml(plano.nome)}</span>
-                <strong>R$ ${formatCurrency(discountedValue)}</strong>
-                ${discount ? `<small>Original: R$ ${escapeHtml(plano.preco)}</small>` : '<small>Valor mensal</small>'}
+                <strong>R$ ${formatCurrency(parseCurrency(plano.preco))}</strong>
+                <small>Pacote mensal sem desconto</small>
             `;
             salesPlanGrid.appendChild(card);
         });
