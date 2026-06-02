@@ -49,20 +49,36 @@
                 <p class="section-subtitle">Edite planos, consultas disponíveis e valores usados pela página de vendas.</p>
                 <div class="admin-panel">
                     <div class="admin-toolbar">
-                        <button class="btn btn-secondary" type="button" id="adminAddPlan">Adicionar plano</button>
-                        <button class="btn btn-secondary" type="button" id="adminAddConsulta">Adicionar consulta</button>
+                        <div class="admin-tabs" role="tablist" aria-label="Seções da administração">
+                            <button class="admin-tab is-active" type="button" id="adminTabPlanos" data-admin-tab="planos" role="tab" aria-selected="true" aria-controls="adminPanelPlanos">Planos</button>
+                            <button class="admin-tab" type="button" id="adminTabConsultas" data-admin-tab="consultas" role="tab" aria-selected="false" aria-controls="adminPanelConsultas">Consultas</button>
+                        </div>
                         <button class="btn btn-primary" type="button" id="adminSavePlans">Salvar alterações</button>
                         <button class="btn admin-reset-btn" type="button" id="adminResetPlans">Restaurar padrão</button>
                     </div>
-                    <h2 class="admin-subtitle">Planos</h2>
-                    <div class="admin-plan-list" id="adminPlanList"></div>
-                    <div class="admin-table-heading">
-                        <div>
-                            <h2 class="admin-subtitle">Tabela de consultas</h2>
-                            <p>Valores por consulta em cada plano. Use apenas números no formato 0,00.</p>
+
+                    <section class="admin-tab-panel is-active" id="adminPanelPlanos" data-admin-panel="planos" role="tabpanel" aria-labelledby="adminTabPlanos">
+                        <div class="admin-section-head">
+                            <div>
+                                <h2 class="admin-subtitle">Planos</h2>
+                                <p>Cadastre os planos exibidos no site e usados como colunas da tabela de vendas.</p>
+                            </div>
+                            <button class="btn btn-secondary" type="button" id="adminAddPlan">Adicionar plano</button>
                         </div>
-                    </div>
-                    <div class="admin-consulta-list" id="adminConsultaList"></div>
+                        <div class="admin-plan-list" id="adminPlanList"></div>
+                    </section>
+
+                    <section class="admin-tab-panel" id="adminPanelConsultas" data-admin-panel="consultas" role="tabpanel" aria-labelledby="adminTabConsultas" hidden>
+                        <div class="admin-section-head">
+                            <div>
+                                <h2 class="admin-subtitle">Tabela de consultas</h2>
+                                <p>Edite as consultas disponíveis e seus valores por plano. Use números no formato 0,00.</p>
+                            </div>
+                            <button class="btn btn-secondary" type="button" id="adminAddConsulta">Adicionar consulta</button>
+                        </div>
+                        <div class="admin-consulta-list" id="adminConsultaList"></div>
+                    </section>
+
                     <div class="form-message" id="adminMessage"></div>
                 </div>
             </div>

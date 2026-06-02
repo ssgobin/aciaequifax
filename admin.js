@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const adminConsultaList = document.getElementById('adminConsultaList');
     const adminAddPlan = document.getElementById('adminAddPlan');
     const adminAddConsulta = document.getElementById('adminAddConsulta');
+    const adminTabButtons = document.querySelectorAll('[data-admin-tab]');
+    const adminTabPanels = document.querySelectorAll('[data-admin-panel]');
     const adminSavePlans = document.getElementById('adminSavePlans');
     const adminResetPlans = document.getElementById('adminResetPlans');
     const adminMessage = document.getElementById('adminMessage');
@@ -46,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let hasLoadedAdminData = false;
 
     setupScrollReveal();
+    setupTabs();
 
     onAuthStateChanged(firebaseAuth, function(user) {
         const isLoggedIn = Boolean(user);
@@ -126,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         renderAdmin();
+        setActiveTab('planos');
         showMessage(adminMessage, 'Novo plano adicionado. Revise os valores da tabela e salve.', 'loading');
     });
 
@@ -140,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         renderAdmin();
+        setActiveTab('consultas');
         showMessage(adminMessage, 'Nova consulta adicionada. Informe os valores e salve.', 'loading');
     });
 
@@ -234,6 +239,30 @@ document.addEventListener('DOMContentLoaded', function() {
         list.addEventListener('input', updateFloatingSaveButton);
         list.addEventListener('change', updateFloatingSaveButton);
     });
+
+    function setupTabs() {
+        adminTabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                setActiveTab(this.dataset.adminTab);
+            });
+        });
+    }
+
+    function setActiveTab(tabName) {
+        adminTabButtons.forEach(button => {
+            const isActive = button.dataset.adminTab === tabName;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-selected', String(isActive));
+        });
+
+        adminTabPanels.forEach(panel => {
+            const isActive = panel.dataset.adminPanel === tabName;
+            panel.classList.toggle('is-active', isActive);
+            panel.hidden = !isActive;
+        });
+
+        setupScrollReveal();
+    }
 
     async function loadFirebaseData() {
         renderAdmin();
