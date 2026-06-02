@@ -16,3 +16,4 @@ export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
 export const firestoreDb = getFirestore(firebaseApp);
 export const planosDocRef = doc(firestoreDb, 'configuracoes', 'planos');
+export const consultasDocRef = doc(firestoreDb, 'configuracoes', 'consultas');

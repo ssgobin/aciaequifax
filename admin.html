@@ -14,7 +14,8 @@
                 <img src="img/equifax.png" alt="Equifax Boa Vista" class="logo-img logo-equifax-img">
             </a>
             <nav class="nav">
-                <a href="index.html" class="nav-link">Voltar ao site</a>
+                <a href="index.html" class="nav-link admin-link">Voltar ao site</a>
+                <a href="vendas.html" class="nav-link admin-link">Página de vendas</a>
                 <button class="nav-link admin-logout" type="button" id="logoutBtn" hidden>Sair</button>
             </nav>
         </div>
@@ -44,15 +45,24 @@
 
         <section id="adminPanelSection" class="admin-section" hidden>
             <div class="container">
-                <h1 class="section-title">Administração dos planos</h1>
-                <p class="section-subtitle">Edite nome, valor, indicação e destaque dos planos exibidos no site.</p>
+                <h1 class="section-title">Administração dos planos e consultas</h1>
+                <p class="section-subtitle">Edite planos, consultas disponíveis e valores usados pela página de vendas.</p>
                 <div class="admin-panel">
                     <div class="admin-toolbar">
                         <button class="btn btn-secondary" type="button" id="adminAddPlan">Adicionar plano</button>
+                        <button class="btn btn-secondary" type="button" id="adminAddConsulta">Adicionar consulta</button>
                         <button class="btn btn-primary" type="button" id="adminSavePlans">Salvar alterações</button>
                         <button class="btn admin-reset-btn" type="button" id="adminResetPlans">Restaurar padrão</button>
                     </div>
+                    <h2 class="admin-subtitle">Planos</h2>
                     <div class="admin-plan-list" id="adminPlanList"></div>
+                    <div class="admin-table-heading">
+                        <div>
+                            <h2 class="admin-subtitle">Tabela de consultas</h2>
+                            <p>Valores por consulta em cada plano. Use apenas números no formato 0,00.</p>
+                        </div>
+                    </div>
+                    <div class="admin-consulta-list" id="adminConsultaList"></div>
                     <div class="form-message" id="adminMessage"></div>
                 </div>
             </div>

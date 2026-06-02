@@ -102,6 +102,20 @@ body {
     animation: fadeInUp 0.55s 0.08s ease both;
 }
 
+.section-kicker {
+    width: fit-content;
+    margin: 0 auto 12px;
+    padding: 7px 14px;
+    border: 1px solid rgba(196, 30, 58, 0.18);
+    border-radius: 999px;
+    background: rgba(196, 30, 58, 0.08);
+    color: var(--secondary-color);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+}
+
 .btn {
     display: inline-block;
     padding: 14px 32px;
@@ -434,6 +448,35 @@ body {
     background-color: var(--bg-white);
 }
 
+.consultas-section {
+    padding: 100px 0;
+    background: var(--bg-white);
+}
+
+.consultas-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+}
+
+.consulta-item {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--secondary-color);
+    border-radius: 8px;
+    background: var(--bg-light);
+    color: var(--primary-color);
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.35;
+    animation: fadeInUp 0.42s ease both;
+    animation-delay: calc(var(--item-index, 0) * 24ms);
+}
+
 .planos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -617,6 +660,34 @@ body {
     gap: 18px;
 }
 
+.admin-subtitle {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin: 28px 0 16px;
+}
+
+.admin-subtitle:first-of-type {
+    margin-top: 0;
+}
+
+.admin-table-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 34px;
+}
+
+.admin-table-heading p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.admin-consulta-list {
+    display: grid;
+    gap: 16px;
+}
+
 .admin-plan-item {
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -625,6 +696,29 @@ body {
     animation: fadeInUp 0.42s ease both;
     animation-delay: calc(var(--item-index, 0) * 50ms);
     transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.admin-consulta-item {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    background: var(--bg-white);
+    animation: fadeInUp 0.42s ease both;
+    animation-delay: calc(var(--item-index, 0) * 35ms);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.admin-consulta-item:focus-within {
+    border-color: rgba(30, 58, 95, 0.45);
+    box-shadow: 0 10px 30px rgba(30, 58, 95, 0.1);
+    transform: translateY(-2px);
+}
+
+.admin-consulta-prices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
 }
 
 .admin-plan-item:focus-within {
@@ -749,6 +843,180 @@ body {
 
 .admin-floating-save:active {
     transform: translateY(0) scale(0.98);
+}
+
+.sales-page {
+    background: var(--bg-light);
+}
+
+.sales-main {
+    padding-top: 80px;
+}
+
+.sales-hero {
+    padding: 70px 0 42px;
+    background: linear-gradient(135deg, var(--primary-color), #274f78);
+    color: var(--bg-white);
+}
+
+.sales-hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 28px;
+    align-items: end;
+}
+
+.sales-hero .section-kicker {
+    margin-left: 0;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: var(--bg-white);
+}
+
+.sales-title {
+    max-width: 720px;
+    font-size: 2.35rem;
+    line-height: 1.15;
+    margin-bottom: 12px;
+}
+
+.sales-subtitle {
+    max-width: 680px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.08rem;
+}
+
+.sales-discount-panel {
+    padding: 20px;
+    border-radius: 8px;
+    background: var(--bg-white);
+    box-shadow: var(--shadow);
+}
+
+.sales-section {
+    padding: 42px 0;
+}
+
+.sales-section-title {
+    color: var(--primary-color);
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin-bottom: 18px;
+}
+
+.sales-plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+}
+
+.sales-plan-card {
+    display: grid;
+    gap: 5px;
+    padding: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-white);
+}
+
+.sales-plan-card span {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.sales-plan-card strong {
+    color: var(--primary-color);
+    font-size: 1.35rem;
+    line-height: 1.1;
+}
+
+.sales-plan-card small {
+    color: var(--text-muted);
+}
+
+.sales-table-section {
+    padding-top: 12px;
+}
+
+.sales-table-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.sales-table-head p {
+    color: var(--text-light);
+}
+
+.sales-pill {
+    white-space: nowrap;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(30, 58, 95, 0.08);
+    color: var(--primary-color);
+    font-weight: 800;
+    font-size: 0.86rem;
+}
+
+.sales-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-white);
+    box-shadow: var(--shadow);
+}
+
+.sales-table {
+    width: 100%;
+    min-width: 1120px;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.sales-table th,
+.sales-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.sales-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--primary-color);
+    color: var(--bg-white);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0;
+}
+
+.sales-table th:first-child,
+.sales-table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    width: 380px;
+    max-width: 380px;
+    background: var(--bg-white);
+    color: var(--primary-color);
+    text-align: left;
+    white-space: normal;
+}
+
+.sales-table thead th:first-child {
+    z-index: 3;
+    background: var(--secondary-color);
+    color: var(--bg-white);
+}
+
+.sales-table tbody tr:hover td,
+.sales-table tbody tr:hover th {
+    background: #f3f6f9;
 }
 
 .cta-section {
@@ -1061,6 +1329,7 @@ body {
     }
 
     .beneficios,
+    .consultas-section,
     .planos,
     .admin-section,
     .cta-section {
@@ -1109,6 +1378,10 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .admin-consulta-prices {
+        grid-template-columns: 1fr;
+    }
+
     .admin-check {
         padding-top: 0;
     }
@@ -1140,6 +1413,33 @@ body {
     .modal-content {
         padding: 32px 24px;
         border-radius: 16px;
+    }
+
+    .sales-main {
+        padding-top: 124px;
+    }
+
+    .sales-hero {
+        padding: 44px 0 34px;
+    }
+
+    .sales-hero-inner {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+    }
+
+    .sales-title {
+        font-size: 1.85rem;
+    }
+
+    .sales-table-head {
+        display: grid;
+    }
+
+    .sales-table th:first-child,
+    .sales-table td:first-child {
+        width: 260px;
+        max-width: 260px;
     }
 
     .form-row {

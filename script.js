@@ -1,18 +1,16 @@
 import { getDoc } from 'https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js';
-import { planosDocRef } from './firebase-config.js';
+import { consultasDocRef, planosDocRef } from './firebase-config.js';
+import {
+    DEFAULT_CONSULTAS,
+    DEFAULT_PLANOS,
+    STORAGE_KEYS,
+    cloneItems,
+    escapeAttribute,
+    escapeHtml,
+    getPrecoParts
+} from './acia-data.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-    const STORAGE_KEY = 'aciaEquifaxPlanos';
-    const DEFAULT_PLANOS = [
-        { id: 'basic', nome: 'Basic', preco: '69,90', indicacao: 'Ideal para consultas pontuais', destaque: false, badge: '' },
-        { id: 'plus', nome: 'Plus', preco: '249,90', indicacao: 'Ideal para pequenas empresas', destaque: false, badge: '' },
-        { id: 'premium', nome: 'Premium', preco: '600,00', indicacao: 'Ideal para médias empresas', destaque: true, badge: 'Mais vendido' },
-        { id: 'business', nome: 'Business', preco: '1.800,00', indicacao: 'Ideal para grandes empresas', destaque: false, badge: '' },
-        { id: 'enterprise', nome: 'Enterprise', preco: '7.000,00', indicacao: 'Para alto volume de consultas', destaque: false, badge: '' },
-        { id: 'corporate', nome: 'Corporate', preco: '10.000,00', indicacao: 'Para necessidades específicas', destaque: false, badge: '' },
-        { id: 'vip', nome: 'VIP', preco: '20.000,00', indicacao: 'Para grandes operações', destaque: false, badge: '' }
-    ];
-
     const modal = document.getElementById('modal');
     const modalClose = document.getElementById('modalClose');
     const modalForm = document.getElementById('modalForm');
@@ -21,13 +19,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctaBtn = document.getElementById('ctaBtn');
     const planosGrid = document.getElementById('planosGrid');
     const modalPlanoSelect = document.getElementById('modalPlano');
+    const consultasList = document.getElementById('consultasList');
+    const consultasCount = document.getElementById('consultasCount');
 
     let planos = loadLocalPlanos();
+    let consultas = loadLocalConsultas();
 
     renderPlanos();
     renderPlanoOptions();
+    renderConsultas();
     setupScrollReveal();
     loadFirebasePlanos();
+    loadFirebaseConsultas();
 
     if (ctaBtn) {
         ctaBtn.addEventListener('click', function() {
@@ -39,14 +42,16 @@ document.addEventListener('DOMContentLoaded', function() {
         modalClose.addEventListener('click', closeModal);
     }
 
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
 
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
             closeModal();
         }
     });
@@ -75,42 +80,71 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    async function loadFirebaseConsultas() {
+        try {
+            const docSnapshot = await getDoc(consultasDocRef);
+
+            if (!docSnapshot.exists()) {
+                return;
+            }
+
+            const firebaseConsultas = docSnapshot.data().items;
+
+            if (!Array.isArray(firebaseConsultas) || !firebaseConsultas.length) {
+                return;
+            }
+
+            consultas = firebaseConsultas;
+            saveLocalConsultas(consultas);
+            renderConsultas();
+            setupScrollReveal();
+        } catch (error) {
+            console.error('Erro ao carregar consultas atualizadas:', error);
+        }
+    }
+
     function loadLocalPlanos() {
-        const savedPlanos = localStorage.getItem(STORAGE_KEY);
+        const savedPlanos = localStorage.getItem(STORAGE_KEYS.planos);
 
         if (!savedPlanos) {
-            return clonePlanos(DEFAULT_PLANOS);
+            return cloneItems(DEFAULT_PLANOS);
         }
 
         try {
             const parsedPlanos = JSON.parse(savedPlanos);
-            return Array.isArray(parsedPlanos) && parsedPlanos.length ? parsedPlanos : clonePlanos(DEFAULT_PLANOS);
+            return Array.isArray(parsedPlanos) && parsedPlanos.length ? parsedPlanos : cloneItems(DEFAULT_PLANOS);
         } catch (error) {
             console.error('Erro ao carregar planos:', error);
-            return clonePlanos(DEFAULT_PLANOS);
+            return cloneItems(DEFAULT_PLANOS);
         }
     }
 
     function saveLocalPlanos(planosToSave) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(planosToSave));
+        localStorage.setItem(STORAGE_KEYS.planos, JSON.stringify(planosToSave));
     }
 
-    function clonePlanos(planosToClone) {
-        return planosToClone.map(plano => ({ ...plano }));
+    function loadLocalConsultas() {
+        const savedConsultas = localStorage.getItem(STORAGE_KEYS.consultas);
+
+        if (!savedConsultas) {
+            return cloneItems(DEFAULT_CONSULTAS);
+        }
+
+        try {
+            const parsedConsultas = JSON.parse(savedConsultas);
+            return Array.isArray(parsedConsultas) && parsedConsultas.length ? parsedConsultas : cloneItems(DEFAULT_CONSULTAS);
+        } catch (error) {
+            console.error('Erro ao carregar consultas:', error);
+            return cloneItems(DEFAULT_CONSULTAS);
+        }
+    }
+
+    function saveLocalConsultas(consultasToSave) {
+        localStorage.setItem(STORAGE_KEYS.consultas, JSON.stringify(consultasToSave));
     }
 
     function getPlanLabel(plano) {
         return `Plano ${plano.nome} - R$ ${plano.preco}`;
-    }
-
-    function getPrecoParts(preco) {
-        const normalizedPreco = String(preco || '0,00').trim();
-        const [reais, centavos = '00'] = normalizedPreco.split(',');
-
-        return {
-            reais: `R$ ${reais}`,
-            centavos: `,${centavos.padEnd(2, '0').slice(0, 2)}`
-        };
     }
 
     function renderPlanos() {
@@ -150,8 +184,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function renderConsultas() {
+        if (!consultasList) {
+            return;
+        }
+
+        consultasList.innerHTML = '';
+
+        consultas.forEach((consulta, index) => {
+            const item = document.createElement('li');
+            item.className = 'consulta-item';
+            item.style.setProperty('--item-index', index);
+            item.textContent = consulta.nome;
+            consultasList.appendChild(item);
+        });
+
+        if (consultasCount) {
+            consultasCount.textContent = `${consultas.length} consultas disponíveis`;
+        }
+    }
+
     function setupScrollReveal() {
-        const elements = document.querySelectorAll('.section-title, .section-subtitle, .beneficio-card, .plano-card, .cta-content, .footer-content');
+        const elements = document.querySelectorAll('.section-title, .section-subtitle, .beneficio-card, .consulta-item, .plano-card, .cta-content, .footer-content');
 
         if (!('IntersectionObserver' in window)) {
             elements.forEach(element => element.classList.add('is-visible'));
@@ -189,20 +243,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function escapeHtml(value) {
-        return String(value)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#039;');
-    }
-
-    function escapeAttribute(value) {
-        return escapeHtml(value).replace(/`/g, '&#096;');
-    }
-
     function openModal(planoSelecionado) {
+        if (!modal) {
+            return;
+        }
+
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
 
@@ -216,6 +261,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closeModal() {
+        if (!modal) {
+            return;
+        }
+
         modal.classList.remove('active');
         document.body.style.overflow = '';
         resetForm(modalForm);

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Vendas - ACIA Equifax</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="sales-page">
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo admin-logo-link">
+                <img src="img/logoacia.png" alt="ACIA" class="logo-img">
+                <img src="img/equifax.png" alt="Equifax Boa Vista" class="logo-img logo-equifax-img">
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link admin-link">Site</a>
+                <a href="admin.html" class="nav-link admin-link">Administração</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="sales-main">
+        <section class="sales-hero">
+            <div class="container sales-hero-inner">
+                <div>
+                    <div class="section-kicker">Time de vendas</div>
+                    <h1 class="sales-title">Planos e valores das consultas</h1>
+                    <p class="sales-subtitle">Consulte os valores por plano e simule descontos comerciais sem alterar a tabela oficial.</p>
+                </div>
+                <div class="sales-discount-panel">
+                    <label for="discountSelect" class="form-label">Desconto aplicado</label>
+                    <select id="discountSelect" class="form-input">
+                        <option value="0">Sem desconto</option>
+                        <option value="10">10% de desconto</option>
+                        <option value="20">20% de desconto</option>
+                        <option value="30">30% de desconto</option>
+                        <option value="40">40% de desconto</option>
+                        <option value="50">50% de desconto</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section class="sales-section">
+            <div class="container">
+                <h2 class="sales-section-title">Planos</h2>
+                <div class="sales-plan-grid" id="salesPlanGrid"></div>
+            </div>
+        </section>
+
+        <section class="sales-section sales-table-section">
+            <div class="container">
+                <div class="sales-table-head">
+                    <div>
+                        <h2 class="sales-section-title">Tabela de aquisição</h2>
+                        <p id="salesTableNote">Valores sem desconto aplicado.</p>
+                    </div>
+                    <span class="sales-pill" id="salesCount">Consultas</span>
+                </div>
+                <div class="sales-table-wrap">
+                    <table class="sales-table" id="salesTable"></table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="vendas.js"></script>
+</body>
+</html>
